@@ -1,0 +1,111 @@
+# ~/.conkyrc
+# x86 labs - SuSe!
+double_buffer yes
+background no
+
+use_xft yes
+xftfont cure:size=6
+xftalpha 1.0
+
+update_interval 1.0
+ 
+total_run_times 0
+
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_hints undecorate,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_hints undecorated,below,skip_taskbar,sticky,skip_pager
+no_buffers no
+minimum_size 200 500
+maximum_width 250
+draw_graph_borders yes
+stippled_borders 8
+border_width 1
+draw_shades no
+draw_outline no
+draw_borders no
+stippled_borders 0
+alignment top_right
+gap_x 20
+gap_y 40
+uppercase no
+text_buffer_size 1024
+default_bar_size 0 4
+default_graph_size 0 24
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+use_spaces yes
+# Default colors and also border colors
+default_color 303030
+#default_outline_color black
+own_window_colour 262524
+color0 467f77 # Light blue
+color1 93a2cc
+color2 cc9393
+
+TEXT
+#############HERE WE START###################
+${color red}${cpugraph cpu3 32, 130}${alignr}${cpugraph cpu4 32, 130}
+${font conkycolorslogos:size=24}${color2}a${font Terminus:size=8}${color2}${alignr}System
+${color goldenrod}Hostname: $nodename
+${color goldenrod}Linux Kernel: $kernel
+${color goldenrod}CPU Details: $machine, $freq(MHz)
+${color goldenrod}temp: ${color0}${acpitemp}°C
+${color goldenrod}uptime:${color0} $uptime
+${stippled_hr 1 1}
+${color2}${alignr}CPU
+${color1}usage: ${color0}${cpu cpu0}% ${alignr}${cpubar cpu0 6,135}
+${color1}frequency: ${color0}${freq 0}MHz
+${stippled_hr 1 1}
+${color2}${alignr}Memory
+${color1}ram: ${color0}$memperc%${alignr}${membar 6,135}
+${stippled_hr 1 1}
+###############We all live in yellow submarine###############
+################
+# CONNECTIONS  #
+################
+$alignc${color Tan2}ESTABLISHED Connections${color DarkSlateGray}${hr 2}
+
+$alignc${offset 10}${color lightgrey}Inbound: $alignc${color white}${tcp_portmon 1 32767 count}    $alignc${color lightgrey}Outbound: $alignc${color white}${tcp_portmon 32768 61000 count}${alignr}${color lightgrey}Total: ${color white}${tcp_portmon 1 65535 count}
+
+$alignc${color slate grey}Process                 ${color slate grey}Remote IP              ${color slate grey}L-Port ${alignr}${color slate grey}R-Port${color lightgrey}
+
+$alignc${font Ubuntu Mono:size=8}${texeci 30 netstat -anp | grep 'ESTABLISHED' | sed -r 's|.*192.[0-9.]+:([0-9]*)\s*([0-9.]+):([0-9]+)[^/]+/([a-zA-Z0-9]*)|\4 \2 \1 \3|' | awk '{printf("%-14s %-15s %5s %5s\n",$1,$2,$3,$4)}'}
+################
+# end          #
+################
+
+################
+# Disk usage   #
+################
+
+${stippled_hr 1 1}
+${font DejaVu San Mono: size=12: style=bold}FILE SYSTEM${font} $hr
+Root:${alignr}${fs_bar 10,100 /}
+Boot:${alignr}${fs_bar 10,100 /boot}
+Var:${alignr}${fs_bar 10,100 /var}
+Home:${alignr}${fs_bar 10,100 /home}
+${color0}${stippled_hr 1 1}
+Battery: ${alignr}${battery}
+${battery_bar}
+${stippled_hr 1 1}
+################
+# Comfortably  #
+################
+
+################
+# Wireless     #
+################
+${color2}${alignr}Network - Wireless -
+${stippled_hr 1 1}
+${color1}down:${color0} ${totaldown wlp2s0}${alignr}${color1}up:${color0} ${totalup wlp2s0}
+${stippled_hr 1 1}
+${color2}${alignr}Network - Cable -
+${stippled_hr 1 1}
+${color1}down:${color0} ${totaldown enp1s0}${alignr}${color1}up:${color0} ${totalup enp1s0}
+
+${alignc}${font Terminus:size=8}${color0}${time %G-%m-%d %H:%M:%S}
+
+${alignc}${font Terminus:size=8}${color0}
